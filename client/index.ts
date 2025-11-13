@@ -28,7 +28,6 @@ setTick(() => {
     const pedVehicle = GetVehiclePedIsIn(PlayerPedId(), false);
     if (pedVehicle != 0 && GetIsVehicleEngineRunning(pedVehicle)) {
         const velocity = vec3ToVelocity(GetEntityVelocity(pedVehicle));
-        const gear = GetVehicleCurrentGear(pedVehicle);
         hideHud();
         emit(event("show"), {
             velocity: Math.ceil(toKm(velocity)),
