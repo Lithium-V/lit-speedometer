@@ -31,7 +31,7 @@ onNet(event("hide"), () => {
 });
 setTick(() => {
   const pedVehicle = GetVehiclePedIsIn(PlayerPedId(), false);
-  if (pedVehicle != 0 && GetIsVehicleEngineRunning(pedVehicle)) {
+  if (pedVehicle != 0 && GetIsVehicleEngineRunning(pedVehicle) && !IsPauseMenuActive()) {
     const velocity = vec3ToVelocity(GetEntityVelocity(pedVehicle));
     const maxSpeed = GetVehicleMaxSpeed(pedVehicle);
     hideHud();
