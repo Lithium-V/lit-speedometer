@@ -1,1 +1,1 @@
-console.log("lit-speedometer client started"); 
+import { event, toKm, vec3ToVelocity } from "./utils"

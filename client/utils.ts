@@ -2,7 +2,7 @@ export const event = (name: string): string => {
     return `lit-speedometer:${name}`
 }
 
-export const toTkm = (miles: number): number => {
+export const toKm = (miles: number): number => {
     return miles * 3.6;
 }
 
