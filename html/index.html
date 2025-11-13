@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <script defer src="/html/alpine.js"></script>
     <script src="/html/tailwindcss.js"></script>
-  </head>
-  <body>
-    <!--body-->
-  </body>
+    <script src="/html/app.js"></script>
+</head>
+
+<body x-data="__speedometer" x-show="show">
+    <div class="fixed flex right-10 bottom-10 gap-1 items-end">
+        <div x-text="getVelocity()" class="text-[4.5rem] text-white font-bold leading-none"></div>
+        <div class="flex flex-col items-center leading-none">
+            <div x-text="gear"
+                class="rounded-lg bg-[#c47a1bfb] p-[0.17rem] px-[0.3rem] text-[1.5rem] text-white font-bold mb-6 ml-2">
+            </div>
+            <div class="text-[1rem] text-white font-bold ">km</div>
+        </div>
+    </div>
+</body>
+
 </html>
