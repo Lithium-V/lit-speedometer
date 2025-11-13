@@ -11,9 +11,38 @@
     <script src="/html/app.js"></script>
 </head>
 
-<body x-data="__speedometer" x-show="show">
+<body x-data="__speedometer">
+    <style>
+        .slide-transition {
+            transition: transform 850ms ease-in-out, opacity 850ms ease-in-out;
+            will-change: transform, opacity;
+        }
+
+        .slide-enter-start {
+            opacity: 0;
+            transform: translateX(120vw);
+        }
+
+        .slide-enter-end {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-leave-start {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-leave-end {
+            opacity: 0;
+            transform: translateX(120vw);
+        }
+    </style>
     <div class="fixed flex flex-col right-8
-     bottom-1  items-end gap-y-0">
+     bottom-1  items-end gap-y-0" x-show="show" x-transition:enter="slide-transition"
+        x-transition:enter-start="slide-enter-start" x-transition:enter-end="slide-enter-end"
+        x-transition:leave="slide-transition" x-transition:leave-start="slide-leave-start"
+        x-transition:leave-end="slide-leave-end">
         <div class="text-[1.2rem] text-zinc-400 font-bold text-center" :style="textShadowStyle()">KM/H</div>
         <div class="-mt-3 text-[4.5rem] font-bold leading-none font-mono">
             <div class="flex">
