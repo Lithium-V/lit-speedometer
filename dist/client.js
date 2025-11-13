@@ -32,9 +32,9 @@ onNet(event("hide"), () => {
 setTick(() => {
   const pedVehicle = GetVehiclePedIsIn(PlayerPedId(), false);
   if (pedVehicle != 0 && GetIsVehicleEngineRunning(pedVehicle) && !IsPauseMenuActive()) {
+    hideHud();
     const velocity = vec3ToVelocity(GetEntityVelocity(pedVehicle));
     const maxSpeed = GetVehicleMaxSpeed(pedVehicle);
-    hideHud();
     emit(event("show"), {
       velocity: Math.ceil(toKm(velocity)),
       gear: GetVehicleCurrentGear(pedVehicle),
