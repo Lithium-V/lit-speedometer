@@ -1,5 +1,6 @@
 {
-  "name": "race",
+  "name": "lit-speedometer",
+  "author": "Dz6k",
   "type": "module",
   "private": true,
   "scripts": {
