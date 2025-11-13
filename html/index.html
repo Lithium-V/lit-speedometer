@@ -17,9 +17,10 @@
         <div class="-mt-3 text-[4.5rem] font-bold leading-none font-mono">
             <div class="flex">
                 <span x-text="val() >= 100 ? dHundreds() : 0"
-                    :class="val() >= 100 ? 'text-white' : 'text-gray-400'"></span>
-                <span x-text="val() >= 10 ? dTens() : 0" :class="val() >= 10 ? 'text-white' : 'text-gray-400'"></span>
-                <span x-text="dOnes()" class="text-white"></span>
+                    :class="val() >= 100 ? '' : 'text-gray-400'" :style="val() >= 100 ? velocityStyle() : ''"></span>
+                <span x-text="val() >= 10 ? dTens() : 0" :class="val() >= 10 ? '' : 'text-gray-400'"
+                    :style="val() >= 10 ? velocityStyle() : ''"></span>
+                <span x-text="dOnes()" :style="velocityStyle()"></span>
             </div>
         </div>
         <div class="flex">
