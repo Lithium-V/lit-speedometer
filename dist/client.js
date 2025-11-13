@@ -1,1 +1,43 @@
-console.log("lit-speedometer client started");
+// client/utils.ts
+var event = (name) => {
+  return `lit-speedometer:${name}`;
+};
+var toKm = (miles) => {
+  return miles * 3.6;
+};
+var vec3ToVelocity = (vec3) => {
+  return Math.sqrt(vec3[0] ** 2 + vec3[1] ** 2 + vec3[2] ** 2);
+};
+
+// client/index.ts
+function hideHud() {
+  HideHudComponentThisFrame(6);
+  HideHudComponentThisFrame(7);
+  HideHudComponentThisFrame(8);
+  HideHudComponentThisFrame(9);
+}
+onNet(event("show"), (data) => {
+  SendNUIMessage({
+    action: "show",
+    velocity: Number(data.velocity),
+    gear: Number(data.gear)
+  });
+});
+onNet(event("hide"), () => {
+  SendNUIMessage({
+    action: "hide"
+  });
+});
+setTick(() => {
+  const pedVehicle = GetVehiclePedIsIn(PlayerPedId(), false);
+  if (pedVehicle != 0 && GetIsVehicleEngineRunning(pedVehicle)) {
+    const velocity = vec3ToVelocity(GetEntityVelocity(pedVehicle));
+    hideHud();
+    emit(event("show"), {
+      velocity: Math.ceil(toKm(velocity)),
+      gear: GetVehicleCurrentGear(pedVehicle)
+    });
+  } else {
+    emit(event("hide"));
+  }
+});
