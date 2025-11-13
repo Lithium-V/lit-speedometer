@@ -20,7 +20,8 @@ onNet(event("show"), (data) => {
   SendNUIMessage({
     action: "show",
     velocity: Number(data.velocity),
-    gear: Number(data.gear)
+    gear: Number(data.gear),
+    maxSpeed: Number(data.maxSpeed)
   });
 });
 onNet(event("hide"), () => {
@@ -32,10 +33,12 @@ setTick(() => {
   const pedVehicle = GetVehiclePedIsIn(PlayerPedId(), false);
   if (pedVehicle != 0 && GetIsVehicleEngineRunning(pedVehicle)) {
     const velocity = vec3ToVelocity(GetEntityVelocity(pedVehicle));
+    const maxSpeed = GetVehicleMaxSpeed(pedVehicle);
     hideHud();
     emit(event("show"), {
       velocity: Math.ceil(toKm(velocity)),
-      gear: GetVehicleCurrentGear(pedVehicle)
+      gear: GetVehicleCurrentGear(pedVehicle),
+      maxSpeed: Math.ceil(toKm(maxSpeed))
     });
   } else {
     emit(event("hide"));

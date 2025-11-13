@@ -2,6 +2,7 @@ window.__speedometer = {
   show: false,
   velocity: 0,
   gear: 0,
+  maxSpeed: 0,
   init() {
     console.log("init speedometer");
     window.addEventListener("message", (e) => {
@@ -13,6 +14,7 @@ window.__speedometer = {
         this.show = true;
         this.velocity = item.velocity;
         this.gear = item.gear;
+        this.maxSpeed = item.maxSpeed;
       } else if (item.action === "hide") {
         this.show = false;
       }
@@ -60,9 +62,16 @@ window.__speedometer = {
   },
   velocityColor() {
     const v = this.val();
-    if (v <= 60) return this.lerpColor("#ffffff", "#22c55e", v / 60);
-    if (v <= 120) return this.lerpColor("#22c55e", "#f59e0b", (v - 60) / 60);
-    if (v <= 180) return this.lerpColor("#f59e0b", "#ef4444", (v - 120) / 60);
+    const ms = Number(this.maxSpeed) || 180;
+    const t1 = ms * 0.3; // 30%
+    const t2 = ms * 0.6; // 60%
+    const t3 = ms * 1.05; // 105%
+
+    if (v <= t1) return this.lerpColor("#ffffff", "#22c55e", v / t1);
+    if (v <= t2)
+      return this.lerpColor("#22c55e", "#f59e0b", (v - t1) / (t2 - t1));
+    if (v <= t3)
+      return this.lerpColor("#f59e0b", "#ef4444", (v - t2) / (t3 - t2));
     return "#ef4444";
   },
   velocityStyle() {
