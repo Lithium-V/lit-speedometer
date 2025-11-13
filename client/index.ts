@@ -1,7 +1,7 @@
 import { event, toKm, vec3ToVelocity } from "./utils"
 
+// ---- [HIDE COMPONENTS] ---- 
 function hideHud() {
-    // ---- [HIDE COMPONENTS] ---- 
     HideHudComponentThisFrame(6) // VEHICLE NAME
     HideHudComponentThisFrame(7) // AREA NAME
     HideHudComponentThisFrame(8) // VEHICLE CLASS
