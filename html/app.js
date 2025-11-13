@@ -2,6 +2,9 @@ window.__speedometer = {
   show: false,
   velocity: 0,
   gear: 0,
+  prevGear: null,
+  prevGearShow: false,
+  prevGearLeave: false,
   maxSpeed: 0,
   init() {
     console.log("init speedometer");
@@ -13,7 +16,21 @@ window.__speedometer = {
       if (item.action === "show") {
         this.show = true;
         this.velocity = item.velocity;
-        this.gear = item.gear;
+        const ng = item.gear;
+        if (ng !== this.gear) {
+          this.prevGear = this.gear;
+          this.gear = ng;
+          this.prevGearShow = true;
+          this.prevGearLeave = false;
+          setTimeout(() => {
+            this.prevGearLeave = true;
+            setTimeout(() => {
+              this.prevGearShow = false;
+            }, 100);
+          }, 0);
+        } else {
+          this.gear = ng;
+        }
         this.maxSpeed = item.maxSpeed;
       } else if (item.action === "hide") {
         this.show = false;
@@ -63,9 +80,9 @@ window.__speedometer = {
   velocityColor() {
     const v = this.val();
     const ms = Number(this.maxSpeed) || 180;
-    const t1 = ms * 0.3; // 30%
-    const t2 = ms * 0.6; // 60%
-    const t3 = ms * 1.05; // 105%
+    const t1 = ms * 0.3;
+    const t2 = ms * 0.6;
+    const t3 = ms * 1.05;
 
     if (v <= t1) return this.lerpColor("#ffffff", "#22c55e", v / t1);
     if (v <= t2)
@@ -75,6 +92,21 @@ window.__speedometer = {
     return "#ef4444";
   },
   velocityStyle() {
-    return { color: this.velocityColor() };
+    return {
+      color: this.velocityColor(),
+      textShadow: "0 2px 6px rgba(0,0,0,0.6)",
+    };
+  },
+  textShadowStyle() {
+    return { textShadow: "0 2px 6px rgba(0,0,0,0.6)" };
+  },
+  prevGearStyle() {
+    const base = {
+      textShadow: "0 2px 6px rgba(0,0,0,0.6)",
+      transition: "transform 300ms ease, opacity 300ms ease",
+    };
+    if (!this.prevGearLeave)
+      return { ...base, opacity: 1, transform: "translateX(0px)" };
+    return { ...base, opacity: 0, transform: "translateX(32px)" };
   },
 };

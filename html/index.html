@@ -12,19 +12,20 @@
 </head>
 
 <body x-data="__speedometer" x-show="show">
-    <div class="fixed flex flex-col right-10 bottom-1 items-center gap-y-0">
-        <div class="text-[1.2rem] text-gray-400 font-bold text-center">KM/H</div>
+    <div class="fixed flex flex-col right-8
+     bottom-1  items-end gap-y-0">
+        <div class="text-[1.2rem] text-zinc-400 font-bold text-center" :style="textShadowStyle()">KM/H</div>
         <div class="-mt-3 text-[4.5rem] font-bold leading-none font-mono">
             <div class="flex">
-                <span x-text="val() >= 100 ? dHundreds() : 0" :class="val() >= 100 ? '' : 'text-gray-400'"
-                    :style="val() >= 100 ? velocityStyle() : ''"></span>
-                <span x-text="val() >= 10 ? dTens() : 0" :class="val() >= 10 ? '' : 'text-gray-400'"
-                    :style="val() >= 10 ? velocityStyle() : ''"></span>
+                <span x-text="val() >= 100 ? dHundreds() : 0" :class="val() >= 100 ? '' : 'text-zinc-600'"
+                    :style="val() >= 100 ? velocityStyle() : textShadowStyle()"></span>
+                <span x-text="val() >= 10 ? dTens() : 0" :class="val() >= 10 ? '' : 'text-zinc-600'"
+                    :style="val() >= 10 ? velocityStyle() : textShadowStyle()"></span>
                 <span x-text="dOnes()" :style="velocityStyle()"></span>
             </div>
         </div>
-        <div class="flex">
-            <svg class="size-12" viewBox="0 0 17 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div class="flex ">
+            <svg class="size-10" viewBox="0 0 17 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g filter="url(#filter0_d_1642_3954)">
                     <path
                         d="M12.6761 1.37598C12.9474 1.37598 13.1674 1.59595 13.1674 1.86731V4.81528L13.1578 4.91412C13.1121 5.13814 12.9136 5.30661 12.6761 5.30661H10.2194V7.76326C10.2194 8.03461 9.99946 8.25459 9.7281 8.25459C9.45675 8.25459 9.23677 8.03461 9.23677 7.76326V5.30661H7.27146V7.76326C7.27146 8.03461 7.05148 8.25459 6.78013 8.25459C6.50877 8.25459 6.2888 8.03461 6.2888 7.76326V5.30661H4.32348V7.76326C4.32348 8.03461 4.1035 8.25459 3.83215 8.25459C3.5608 8.25459 3.34082 8.03461 3.34082 7.76326V1.86731C3.34082 1.59595 3.5608 1.37598 3.83215 1.37598C4.1035 1.37598 4.32348 1.59595 4.32348 1.86731V4.32395H6.2888V1.86731C6.2888 1.59595 6.50877 1.37598 6.78013 1.37598C7.05148 1.37598 7.27146 1.59595 7.27146 1.86731V4.32395H9.23677V1.86731C9.23677 1.59595 9.45675 1.37598 9.7281 1.37598C9.99946 1.37598 10.2194 1.59595 10.2194 1.86731V4.32395H12.1848V1.86731C12.1848 1.59595 12.4047 1.37598 12.6761 1.37598Z"
@@ -45,8 +46,10 @@
                     </filter>
                 </defs>
             </svg>
-            <div x-text="gear"
-                class="rounded-lg bg-[#c47a1bfb] p-[0.17rem] px-[0.3rem] text-[1.5rem] text-white font-bold mb-6 ml-2">
+            <div class="relative text-[1.3rem] text-white font-bold mb-6 mr-5">
+                <span x-text="gear" :style="textShadowStyle()"></span>
+                <span x-show="prevGearShow && prevGear !== null" x-text="prevGear"
+                    class="absolute left-0 top-0 text-white" :style="prevGearStyle()"></span>
             </div>
         </div>
     </div>
