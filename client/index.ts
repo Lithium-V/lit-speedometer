@@ -8,7 +8,7 @@ function hideHud() {
     HideHudComponentThisFrame(9) // STREET NAME  
 }
 
-// Send Front-end message to show the speedometer
+// Send Front-end message to show || hide the speedometer
 onNet(event("show"), (data: { velocity: number, gear: number }) => {
     SendNUIMessage({
         action: "show",
@@ -17,3 +17,8 @@ onNet(event("show"), (data: { velocity: number, gear: number }) => {
     })
 })
 
+onNet(event("hide"), () => {
+    SendNUIMessage({
+        action: "hide",
+    })
+})
