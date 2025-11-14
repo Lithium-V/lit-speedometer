@@ -31,7 +31,7 @@ window.__speedometer = {
         } else {
           this.gear = ng;
         }
-        this.maxSpeed = item.maxSpeed;
+        this.maxSpeed = item.maxSpeed + 10;
       } else if (item.action === "hide") {
         this.show = false;
       }
@@ -81,7 +81,7 @@ window.__speedometer = {
     const v = this.val();
     const ms = Number(this.maxSpeed) || 180;
     const t1 = ms * 0.3;
-    const t2 = ms * 0.6;
+    const t2 = ms * 0.7;
     const t3 = ms * 1.05;
 
     if (v <= t1) return this.lerpColor("#ffffff", "#22c55e", v / t1);
@@ -93,12 +93,29 @@ window.__speedometer = {
   },
   velocityStyle() {
     return {
-      color: this.velocityColor(),
+      color: "#ffffff",
+      textShadow: "0 2px 6px rgba(0,0,0,0.6)",
+    };
+  },
+  velocityStyleBG() {
+    return {
+      backgroundColor: this.velocityColor(),
       textShadow: "0 2px 6px rgba(0,0,0,0.6)",
     };
   },
   textShadowStyle() {
     return { textShadow: "0 2px 6px rgba(0,0,0,0.6)" };
+  },
+  velocityStyleBG() {
+    const ms = Number(this.maxSpeed) || 0;
+    const v = this.val();
+    let pct = ms > 0 ? (v / ms) * 100 : 0;
+    pct = Math.max(0, Math.min(100, pct));
+    return {
+      width: pct + "%",
+      background: this.velocityColor(),
+      transition: "width 100ms ease-out",
+    };
   },
   prevGearStyle() {
     const base = {
