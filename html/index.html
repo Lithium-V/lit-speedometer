@@ -45,31 +45,38 @@
             animation-timing-function: linear;
             animation-iteration-count: infinite;
             animation-direction: normal;
+            transform-style: preserve-3d;
         }
 
         @keyframes speed-vibrate {
             0% {
-                transform: translate(0, 0);
+                transform: perspective(800px) translate(0, 0) rotateY(var(--tilt-neg)) rotateZ(calc(var(--tilt) / 5));
             }
 
             20% {
-                transform: translate(calc(var(--amp) * 0.35), calc(var(--amp) * -0.25));
+                transform: perspective(800px) translate(calc(var(--amp) * 0.35), calc(var(--amp) * -0.25)) rotateY(var(--tilt-neg)) rotateZ(calc(var(--tilt) / 5));
             }
 
             40% {
-                transform: translate(calc(var(--amp) * -0.40), calc(var(--amp) * 0.30));
+                transform: perspective(800px) translate(calc(var(--amp) * -0.40), calc(var(--amp) * 0.30)) rotateY(var(--tilt-neg)) rotateZ(calc(var(--tilt) / 5));
+            }
+
+            40% {
+                transform: perspective(800px) translate(calc(var(--amp) * -0.40), calc(var(--amp) * 0.30)) rotateY(var(--tilt-neg)) rotateZ(calc(var(--tilt) / 5));
             }
 
             60% {
-                transform: translate(calc(var(--amp) * 0.20), calc(var(--amp) * -0.15));
+                transform: perspective(800px) translate(calc(var(--amp) * 0.20), calc(var(--amp) * -0.15)) rotateY(var(--tilt-neg)) rotateZ(calc(var(--tilt) / 5));
             }
 
             80% {
-                transform: translate(calc(var(--amp) * -0.25), calc(var(--amp) * 0.20));
+                transform: perspective(800px) translate(calc(var(--amp) * -0.25), calc(var(--amp) * 0.20)) rotateY(var(--tilt-neg)) rotateZ(calc(var(--tilt) / 5));
+                ;
             }
 
             100% {
-                transform: translate(0, 0);
+                transform: perspective(800px) translate(0, 0) rotateY(var(--tilt-neg)) rotateZ(calc(var(--tilt) / 5));
+                ;
             }
         }
     </style>

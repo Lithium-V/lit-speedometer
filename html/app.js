@@ -133,16 +133,20 @@ window.__speedometer = {
     const basePct = ms > 0 ? Math.max(0, Math.min(1, v / ms)) : 0;
     const amp = basePct * 4;
     const maxDur = 200;
-    const minDur = 10;
+    const minDur = 150;
     const range = ms > start ? ms - start : Math.max(1, ms);
     const pctFrom100 =
       v > start ? Math.max(0, Math.min(1, (v - start) / range)) : 0;
     const dur = Math.round(maxDur - (maxDur - minDur) * pctFrom100);
-    console.log(dur);
+    console.log(pctFrom100);
     const play = v >= start ? "running" : "paused";
+    const tiltMax = 25;
+    const tilt = pctFrom100 * tiltMax;
     return {
       "--amp": amp + "px",
       "--vfreq": dur + "ms",
+      "--tilt": tilt + "deg",
+      "--tilt-neg": -tilt + "deg",
       animationPlayState: play,
     };
   },
