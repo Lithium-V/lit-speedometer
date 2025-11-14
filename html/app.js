@@ -126,4 +126,24 @@ window.__speedometer = {
       return { ...base, opacity: 1, transform: "translateX(0px)" };
     return { ...base, opacity: 0, transform: "translateX(32px)" };
   },
+  vibrationStyleVars() {
+    const ms = Number(this.maxSpeed) || 0;
+    const v = this.val();
+    const start = 100;
+    const basePct = ms > 0 ? Math.max(0, Math.min(1, v / ms)) : 0;
+    const amp = basePct * 4;
+    const maxDur = 200;
+    const minDur = 10;
+    const range = ms > start ? ms - start : Math.max(1, ms);
+    const pctFrom100 =
+      v > start ? Math.max(0, Math.min(1, (v - start) / range)) : 0;
+    const dur = Math.round(maxDur - (maxDur - minDur) * pctFrom100);
+    console.log(dur);
+    const play = v >= start ? "running" : "paused";
+    return {
+      "--amp": amp + "px",
+      "--vfreq": dur + "ms",
+      animationPlayState: play,
+    };
+  },
 };

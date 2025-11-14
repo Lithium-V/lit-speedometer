@@ -37,53 +37,88 @@
             opacity: 0;
             transform: translateX(120vw);
         }
+
+        .vibrate {
+            will-change: transform;
+            animation-name: speed-vibrate;
+            animation-duration: var(--vfreq, 120ms);
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            animation-direction: normal;
+        }
+
+        @keyframes speed-vibrate {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            20% {
+                transform: translate(calc(var(--amp) * 0.35), calc(var(--amp) * -0.25));
+            }
+
+            40% {
+                transform: translate(calc(var(--amp) * -0.40), calc(var(--amp) * 0.30));
+            }
+
+            60% {
+                transform: translate(calc(var(--amp) * 0.20), calc(var(--amp) * -0.15));
+            }
+
+            80% {
+                transform: translate(calc(var(--amp) * -0.25), calc(var(--amp) * 0.20));
+            }
+
+            100% {
+                transform: translate(0, 0);
+            }
+        }
     </style>
     <div class="  justify-center items-center fixed flex flex-col right-8
      bottom-4  ap-y-0" x-show="show" x-transition:enter="slide-transition" x-transition:enter-start="slide-enter-start"
         x-transition:enter-end="slide-enter-end" x-transition:leave="slide-transition"
         x-transition:leave-start="slide-leave-start" x-transition:leave-end="slide-leave-end">
-        <div class="text-[1.2rem] text-zinc-200 font-bold text-center" :style="textShadowStyle()">
-            KM/H</div>
-        <div class="-mt-3 text-[4.5rem] font-bold leading-none font-mono">
-            <div class="flex">
-                <span x-text="val() >= 100 ? dHundreds() : 0" :class=" val() >= 100 ? '' : 'text-zinc-600'"
-                    :style="val() >= 100 ? velocityStyle() : textShadowStyle()"></span>
-                <span x-text="val() >= 10 ? dTens() : 0" :class="  val() >= 10 ? '' : 'text-zinc-600'"
-                    :style="val() >= 10 ? velocityStyle() : textShadowStyle()"></span>
-                <span x-text="dOnes()" :style="velocityStyle()"></span>
+        <div class="vibrate justify-center items-center flex-col flex" :style="vibrationStyleVars()">
+            <div class="text-[1.2rem] text-zinc-200 font-bold text-center" :style="textShadowStyle()">KM/H</div>
+            <div class="-mt-3 text-[4.5rem] font-bold leading-none font-mono">
+                <div class="flex">
+                    <span x-text="val() >= 100 ? dHundreds() : 0" :class=" val() >= 100 ? '' : 'text-zinc-600'"
+                        :style="val() >= 100 ? velocityStyle() : textShadowStyle()"></span>
+                    <span x-text="val() >= 10 ? dTens() : 0" :class="  val() >= 10 ? '' : 'text-zinc-600'"
+                        :style="val() >= 10 ? velocityStyle() : textShadowStyle()"></span>
+                    <span x-text="dOnes()" :style="velocityStyle()"></span>
+                </div>
             </div>
-        </div>
-        <div class="bg-zinc-600 rounded w-full h-1 mb-1">
-            <div class="bg-white h-full w-10" :style="velocityStyleBG()">
-
+            <div class="bg-zinc-600 rounded w-full h-1 mb-1">
+                <div class="bg-white h-full w-10" :style="velocityStyleBG()"></div>
             </div>
-        </div>
-        <div class=" flex">
-            <svg class="size-10" viewBox="0 0 17 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g filter="url(#filter0_d_1642_3954)">
-                    <path
-                        d="M12.6761 1.37598C12.9474 1.37598 13.1674 1.59595 13.1674 1.86731V4.81528L13.1578 4.91412C13.1121 5.13814 12.9136 5.30661 12.6761 5.30661H10.2194V7.76326C10.2194 8.03461 9.99946 8.25459 9.7281 8.25459C9.45675 8.25459 9.23677 8.03461 9.23677 7.76326V5.30661H7.27146V7.76326C7.27146 8.03461 7.05148 8.25459 6.78013 8.25459C6.50877 8.25459 6.2888 8.03461 6.2888 7.76326V5.30661H4.32348V7.76326C4.32348 8.03461 4.1035 8.25459 3.83215 8.25459C3.5608 8.25459 3.34082 8.03461 3.34082 7.76326V1.86731C3.34082 1.59595 3.5608 1.37598 3.83215 1.37598C4.1035 1.37598 4.32348 1.59595 4.32348 1.86731V4.32395H6.2888V1.86731C6.2888 1.59595 6.50877 1.37598 6.78013 1.37598C7.05148 1.37598 7.27146 1.59595 7.27146 1.86731V4.32395H9.23677V1.86731C9.23677 1.59595 9.45675 1.37598 9.7281 1.37598C9.99946 1.37598 10.2194 1.59595 10.2194 1.86731V4.32395H12.1848V1.86731C12.1848 1.59595 12.4047 1.37598 12.6761 1.37598Z"
-                        fill="white" />
-                </g>
-                <defs>
-                    <filter id="filter0_d_1642_3954" x="-0.000220299" y="0.000253916" width="16.5087" height="13.561"
-                        filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                            result="hardAlpha" />
-                        <feOffset dy="1.96532" />
-                        <feGaussianBlur stdDeviation="1.67052" />
-                        <feComposite in2="hardAlpha" operator="out" />
-                        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.45 0" />
-                        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1642_3954" />
-                        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1642_3954" result="shape" />
-                    </filter>
-                </defs>
-            </svg>
-            <div class="relative text-[1.3rem] text-white font-bold -mt-1">
-                <span x-text="gear" :style="textShadowStyle()"></span>
-                <span x-show="prevGearShow && prevGear !== null" x-text="prevGear"
-                    class="absolute left-0 top-0 text-white" :style="prevGearStyle()"></span>
+            <div class=" flex">
+                <svg class="size-10" viewBox="0 0 17 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g filter="url(#filter0_d_1642_3954)">
+                        <path
+                            d="M12.6761 1.37598C12.9474 1.37598 13.1674 1.59595 13.1674 1.86731V4.81528L13.1578 4.91412C13.1121 5.13814 12.9136 5.30661 12.6761 5.30661H10.2194V7.76326C10.2194 8.03461 9.99946 8.25459 9.7281 8.25459C9.45675 8.25459 9.23677 8.03461 9.23677 7.76326V5.30661H7.27146V7.76326C7.27146 8.03461 7.05148 8.25459 6.78013 8.25459C6.50877 8.25459 6.2888 8.03461 6.2888 7.76326V5.30661H4.32348V7.76326C4.32348 8.03461 4.1035 8.25459 3.83215 8.25459C3.5608 8.25459 3.34082 8.03461 3.34082 7.76326V1.86731C3.34082 1.59595 3.5608 1.37598 3.83215 1.37598C4.1035 1.37598 4.32348 1.59595 4.32348 1.86731V4.32395H6.2888V1.86731C6.2888 1.59595 6.50877 1.37598 6.78013 1.37598C7.05148 1.37598 7.27146 1.59595 7.27146 1.86731V4.32395H9.23677V1.86731C9.23677 1.59595 9.45675 1.37598 9.7281 1.37598C9.99946 1.37598 10.2194 1.59595 10.2194 1.86731V4.32395H12.1848V1.86731C12.1848 1.59595 12.4047 1.37598 12.6761 1.37598Z"
+                            fill="white" />
+                    </g>
+                    <defs>
+                        <filter id="filter0_d_1642_3954" x="-0.000220299" y="0.000253916" width="16.5087"
+                            height="13.561" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                            <feColorMatrix in="SourceAlpha" type="matrix"
+                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                            <feOffset dy="1.96532" />
+                            <feGaussianBlur stdDeviation="1.67052" />
+                            <feComposite in2="hardAlpha" operator="out" />
+                            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.45 0" />
+                            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1642_3954" />
+                            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1642_3954"
+                                result="shape" />
+                        </filter>
+                    </defs>
+                </svg>
+                <div class="relative text-[1.3rem] text-white font-bold -mt-1">
+                    <span x-text="gear" :style="textShadowStyle()"></span>
+                    <span x-show="prevGearShow && prevGear !== null" x-text="prevGear"
+                        class="absolute left-0 top-0 text-white" :style="prevGearStyle()"></span>
+                </div>
             </div>
         </div>
     </div>
