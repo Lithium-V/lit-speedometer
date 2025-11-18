@@ -138,7 +138,6 @@ window.__speedometer = {
     const pctFrom100 =
       v > start ? Math.max(0, Math.min(1, (v - start) / range)) : 0;
     const dur = Math.round(maxDur - (maxDur - minDur) * pctFrom100);
-    console.log(pctFrom100);
     const play = v >= start ? "running" : "paused";
     const tiltMax = 25;
     const tilt = pctFrom100 * tiltMax;
